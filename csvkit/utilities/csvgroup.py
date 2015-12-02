@@ -27,7 +27,7 @@ class CSVGroup(CSVKitUtility):
             return
 
         #Read in header and rows
-        reader = CSVKitReader(self.args.file, **self.reader_kwargs)
+        reader = CSVKitReader(self.input_file, **self.reader_kwargs)
         column_names = reader.next()
         if self.args.columns is None:
             grouped_columns_ids = []
