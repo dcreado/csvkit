@@ -11,6 +11,8 @@ import random
 import collections
 # noinspection PyUnresolvedReferences
 from rex import rex
+# noinspection PyUnresolvedReferences
+import datetime
 
 
 class ScriptCSVReader(object):
