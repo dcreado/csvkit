@@ -9,7 +9,8 @@ install_requires = [
     'openpyxl==2.2.0-b1',
     'six>=1.6.1',
     'python-dateutil==2.2',
-    'python-rex'
+    'python-rex',
+    'ldif3'
 ]
 
 if sys.version_info < (2, 7):
@@ -72,6 +73,7 @@ setup(
             'sql2csv = csvkit.utilities.sql2csv:launch_new_instance',
             'csvgroup = csvkit.utilities.csvgroup:launch_new_instance',
             'csvpys = csvkit.utilities.csvpys:launch_new_instance',
+            'csv2ldif = csvkit.utilities.csv2ldif:launch_new_instance',
         ]
     },
     install_requires=install_requires
