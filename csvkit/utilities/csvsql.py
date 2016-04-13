@@ -73,8 +73,8 @@ class CSVSQL(CSVKitUtility):
         if do_insert and not connection_string:
             self.argparser.error('The --insert option is only valid when --db is also specified.')
 
-        if self.args.no_create and not do_insert:
-            self.argparser.error('The --no-create option is only valid --insert is also specified.')
+        #if self.args.no_create and not do_insert:
+        #    self.argparser.error('The --no-create option is only valid --insert is also specified.')
 
         # Establish database validity before reading CSV files
         if connection_string:
@@ -130,7 +130,12 @@ class CSVSQL(CSVKitUtility):
             # Output SQL statements
             else:
                 sql_table = sql.make_table(csv_table, table_name, self.args.no_constraints)
-                self.output_file.write('%s\n' % sql.make_create_table_statement(sql_table, dialect=self.args.dialect))
+                if self.args.no_create == False :
+                    self.output_file.write('%s\n' % sql.make_create_table_statement(sql_table, dialect=self.args.dialect))
+                if csv_table.count_rows() > 0:
+                    headers = csv_table.headers()
+                    for row in csv_table.to_rows():
+                        self.output_file.write('%s\n' % sql.create_insert_statement(csv_table,dict(zip(headers, row))))
 
         if connection_string:
             if query:

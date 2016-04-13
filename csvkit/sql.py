@@ -100,3 +100,13 @@ def make_create_table_statement(sql_table, dialect=None):
 
     return six.text_type(CreateTable(sql_table).compile(dialect=sql_dialect)).strip() + ';'
 
+def create_insert_statement(csv_table, row):
+    """
+    Generates a Insert Statement sql string on the table with row.
+    """
+    insert_stat = "INSERT INTO " +  csv_table.name + "("
+    insert_stat += ",".join(map(lambda col: col.name, csv_table))
+    insert_stat += ") VALUES ("
+    insert_stat += ",".join(map(lambda col: "'" + str(row[col.name]) + "'" if col.type == unicode else str(row[col.name]), csv_table))
+    insert_stat += ");"
+    return insert_stat

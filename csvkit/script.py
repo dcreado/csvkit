@@ -15,7 +15,8 @@ from rex import rex
 import datetime
 # noinspection PyUnresolvedReferences
 import uuid
-
+# noinspection PyUnresolvedReferences
+import json
 
 class ScriptCSVReader(object):
     """
