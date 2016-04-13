@@ -13,6 +13,8 @@ import collections
 from rex import rex
 # noinspection PyUnresolvedReferences
 import datetime
+# noinspection PyUnresolvedReferences
+import uuid
 
 
 class ScriptCSVReader(object):
