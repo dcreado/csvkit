@@ -34,6 +34,7 @@ class ScriptCSVReader(object):
         self.compiled_scripts = map(lambda (i, script): (script[0], compile(script[1], 'script-%d' % i, 'eval')),
                                     enumerate(self.scripts))
         self.column_names = reader.next()
+        self.line_number = 0
 
     def __iter__(self):
         return self
@@ -45,16 +46,18 @@ class ScriptCSVReader(object):
 
         while True:
             row = self.reader.next()
-            return row + list(run_scripts(self.compiled_scripts, row, self.column_names, self.zero_based))
+            self.line_number += 1
+            return row + list(run_scripts(self.compiled_scripts, row, self.column_names, self.zero_based, self.line_number))
 
         raise StopIteration()
 
 
-def run_scripts(scripts, row, column_names, zero_based):
+def run_scripts(scripts, row, column_names, zero_based, line_number):
     for script in scripts:
         yield eval(script[1], globals(), {
             'c': row if zero_based else dict((i + 1, r) for i, r in enumerate(row)),
-            'ch': dict(zip(column_names, row))
+            'ch': dict(zip(column_names, row)),
+            'line_number': line_number
         }
         )
 
