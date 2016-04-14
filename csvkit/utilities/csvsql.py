@@ -55,12 +55,12 @@ class CSVSQL(CSVKitUtility):
             table_names = []
 
         # If one or more filenames are specified, we need to add stdin ourselves (if available)
-        if sys.stdin not in self.input_files:
-            try:
-                if not sys.stdin.isatty():
-                    self.input_files.insert(0, sys.stdin)
-            except:
-                pass
+        #if sys.stdin not in self.input_files:
+            #try:
+                #if not sys.stdin.isatty():
+                #    self.input_files.insert(0, sys.stdin)
+            #except:
+                #pass
 
         # Create an SQLite database in memory if no connection string is specified
         if query and not connection_string:

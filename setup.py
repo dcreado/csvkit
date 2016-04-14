@@ -74,6 +74,7 @@ setup(
             'csvgroup = csvkit.utilities.csvgroup:launch_new_instance',
             'csvpys = csvkit.utilities.csvpys:launch_new_instance',
             'csv2ldif = csvkit.utilities.csv2ldif:launch_new_instance',
+            'csv2sql = csvkit.utilities.csv2sql:launch_new_instance',
         ]
     },
     install_requires=install_requires
