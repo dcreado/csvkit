@@ -55,7 +55,8 @@ class CSV2Ldif(CSVKitUtility):
             if self.args.delete_empty:
                 if ''.join(out_row) == '':
                     continue
-            zipped_row = zip(column_names, map(lambda x: [x],out_row))
+            zipped_row = zip(column_names, map(lambda x: [x], out_row))
+            zipped_row = list(v for v in zipped_row if  v[1] != None and v[1][0] != None and v[1][0] != '')
 
             dn = self.args.uid + "=" + out_row[dn_att_id[0]] + "," + self.args.basedn
             output.unparse(dn, zipped_row)
