@@ -27,7 +27,8 @@ class CSVCut(CSVKitUtility):
             help='A comma separated list of column indices or names to be excluded. Defaults to no columns.')
         self.argparser.add_argument('-x', '--delete-empty-rows', dest='delete_empty', action='store_true',
             help='After cutting, delete rows which are completely empty.')
-
+        self.argparser.add_argument('--no-output-header', dest='no_output_header', action='store_true',
+                                help='Don\'t ouput the header with column names.')
     def main(self):
         if self.args.names_only:
             self.print_column_names()
@@ -48,7 +49,8 @@ class CSVCut(CSVKitUtility):
         column_ids = parse_column_identifiers(self.args.columns, column_names, self.args.zero_based, self.args.not_columns)
         output = CSVKitWriter(self.output_file, **self.writer_kwargs)
 
-        output.writerow([column_names[c] for c in column_ids])
+        if not self.args.no_output_header:
+            output.writerow([column_names[c] for c in column_ids])
 
         for row in rows:
             out_row = [row[c] if c < len(row) else None for c in column_ids]
